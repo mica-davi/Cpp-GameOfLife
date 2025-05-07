@@ -3,21 +3,23 @@ void Simulation::Draw() {
 	grid.Draw();
 }
 void Simulation::Update() {
-	std::vector<std::vector<int>> newGrid = grid.CreateGrid();
+	if (IsRunning()) {
+		std::vector<std::vector<int>> newGrid = grid.CreateGrid();
 
-	for (int row = 0; row < grid.GetRows(); row++) {
-		for (int col = 0; col < grid.GetColumns(); col++) {
-			int neighbors(CountLiveNeighbors(row, col));
-			if (neighbors == 3 && !grid.GetValue(row, col)) {
-				newGrid[row][col] = 1;
-			}
-			else if ((neighbors > 3 || neighbors < 2) && grid.GetValue(row, col)) {
-				newGrid[row][col] = 0;
+		for (int row = 0; row < grid.GetRows(); row++) {
+			for (int col = 0; col < grid.GetColumns(); col++) {
+				int neighbors(CountLiveNeighbors(row, col));
+				if (neighbors == 3 && !grid.GetValue(row, col)) {
+					newGrid[row][col] = 1;
+				}
+				else if ((neighbors > 3 || neighbors < 2) && grid.GetValue(row, col)) {
+					newGrid[row][col] = 0;
+				}
 			}
 		}
-	}
 
-	grid.UpdateGrid(newGrid);
+		grid.UpdateGrid(newGrid);
+	}
 }
 void Simulation::GenerateRandomGrid() {
 	grid.FillRandomValues();
@@ -46,4 +48,12 @@ int Simulation::CountLiveNeighbors(int row, int col) {
 	}
 
 	return liveNeighbors;
+}
+
+void Simulation::Start() {
+	running = true;
+}
+
+void Simulation::Stop() {
+	running = false;
 }

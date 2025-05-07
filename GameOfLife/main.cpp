@@ -19,6 +19,12 @@ int main() {
     std::cout << simulation.CountLiveNeighbors(39, 4) << std::endl;
 
     while (!WindowShouldClose()) {
+        if (IsKeyPressed(KEY_ENTER) && !simulation.IsRunning()) {
+            simulation.Start();
+        }else if (IsKeyPressed(KEY_ENTER) && simulation.IsRunning()) {
+            simulation.Stop();
+        }
+
         BeginDrawing();
         ClearBackground(bgColor);
         simulation.Update();

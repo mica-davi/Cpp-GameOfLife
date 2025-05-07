@@ -6,14 +6,17 @@ class Simulation
 {
 public:
 	Simulation(const int& height, const int& width, const int& cellpxsize)
-		: grid(height, width, cellpxsize) {};
+		: running(false), grid(height, width, cellpxsize) {};
 	void Draw();
 	void SetCellVal(int row, int col, int val);
 	void Update();
 	void GenerateRandomGrid();
 	int CountLiveNeighbors(int row, int col);
+	bool IsRunning() { return running; }
+	void Start();
+	void Stop();
 private: 
 	Grid grid;
-	
+	bool running;
 };
 
