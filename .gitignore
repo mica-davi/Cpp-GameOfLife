@@ -1,2 +1,4 @@
 .vs/
 *.sln
+x64/
+GameOfLife/x64/
